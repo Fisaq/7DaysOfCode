@@ -1,4 +1,4 @@
-from modulo_lista import lista_itens, adicionarItem,listarItem, removerItem
+from listaItens import lista_itens, adicionarItem,listarItem, removerItem
 
 def menu():
 
