@@ -49,7 +49,7 @@ def menu():
                 case _:
                     print("\nOpção inválida!")              
     except:
-        print("")
+        print("Problema na execução do programa!")
 
 if __name__ == "__main__":
 
