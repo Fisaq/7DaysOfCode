@@ -1,4 +1,8 @@
-from listaItens import lista_itens, adicionarItem,listarItem, removerItem
+from listarItem import listarItem
+from adicionarItem import adicionarItem
+from removerItem import removerItem
+
+lista_itens = []
 
 def menu():
 
@@ -7,7 +11,7 @@ def menu():
         while(sair < 1):
             op = 0
     
-            print("\n----------- LISTA DE ITENS ----------\n")
+            print("\n----------- MENU ----------\n")
             print("\n[1] Adicionar Item\n[2] Listar Itens\n[3] Remover Itens\n\n[9] Sair")
 
             op = int(input("\nR: "))
@@ -15,22 +19,28 @@ def menu():
             # match é o equivalente ao switch em python
             match op:
                 case 1:
-                    print("\nProduto:")
+                    print("\nProduto:\n")
                     nome = input()
 
-                    print("\nQuantidade: ")
+                    print("\nQuantidade:\n")
                     quantidade = int(input())
          
                     adicionarItem(lista_itens, nome, quantidade)
 
                 case 2:
-                    listarItem(lista_itens)
+                    if (len(lista_itens) == 0):
+                        print("\nA lista está vazia.")
+                    else:
+                        listarItem(lista_itens)
 
                 case 3:
-                    print("\nInforme o nome do produto que deseja remover: ")
-                    prod = input("\nR: ")
+                    if (len(lista_itens) == 0):
+                        print("\nA lista está vazia.")
+                    else:
+                        print("\nInforme o nome do produto que deseja remover: ")
+                        prod = input("\nR: ")
 
-                    removerItem(lista_itens, prod)
+                        removerItem(lista_itens, prod)
 
                 case 9:
                     print("Fim do programa!")
