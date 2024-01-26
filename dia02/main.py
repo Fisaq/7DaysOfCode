@@ -1,44 +1,81 @@
+# Criando a estrutura principal de uma lista encadeada
+
 class No:
+    def __init__(self, paciente):
+        self.paciente = paciente
+        self.prox_paciente = None
 
-    def __init__(self, valor):
-        self.valor = valor
-        self.proximoNo = None # Próximo inicia-se vazio
+class ListaEncadeada:
 
-class ListaLigada:
+    def __init__(self):
+        self.primeiro_paciente = None
+        self.ultimo_paciente = None
 
-    def __init__(self, valor):
-        self.primeiroNo = valor
+    def adicionarPaciente(self, dados):
+        novo_paciente = No(dados)
 
-
-    def adicionarNo(self,valor):
-        novo_no = No(valor)
-
-        if self.primeiroNo is None:
-            self.primeiroNo = novo_no
+        if self.primeiro_paciente is None:
+            self.primeiro_paciente = novo_paciente
+            self.ultimo_paciente = novo_paciente
         else:
-            atual = self.primeiroNo
-            while atual.proximoNo is not None:
-                atual = self.proximoNo
-            atual.proximoNo = novo_no
-
-    def impimiNo(self):
-        valor_atual = self.primeiroNo
-        while valor_atual is not None:
-            print(valor_atual.valor)
-            valor_atual = valor_atual.primeiroNo
-
-class Paciente:
-
-    def __init__ (self, id_paciente, nome, estado_saude):
-        self.id = id_paciente
-        self.nome = nome
-        self.estado_saude = estado_saude
-
-    def adiconarPaciente():
-        pass
-
+            atual = self.primeiro_paciente
+            while atual.prox_paciente is not None:
+                atual= atual.prox_paciente
+            atual.prox_paciente = novo_paciente
+            self.ultimo_paciente = novo_paciente
+                
     def removerPaciente():
         pass
 
-    def listarPacientes():
-        pass
+    def listarPacientes(self):
+        atual = self.primeiro_paciente
+
+        while atual is not None:
+            paciente = atual.paciente
+            print(f"ID Paciente: {paciente.get('id')}") # o método get acessa uma chave do dicionário
+            print(f"Nome: {paciente.get('nome')}")
+            print(f"Estado: {paciente.get('estado')}")
+            atual = atual.prox_paciente 
+
+if __name__ == "__main__":
+
+    # dados = [{"id": "", "nome": "", "estado": ""}]
+
+    sair = 0
+    paciente = ListaEncadeada()
+    try:
+        while sair < 1:
+            print("\n---------- SGH ----------\n")
+            print("[1] Cadastrar paciente\n[2] Listar pacientes\n[3] Remover paciente\n\n[9]Sair\n")
+            op = int(input("R: "))
+
+            match op:
+                case 1:
+                    print("\n----- DADOS PACIENTE -----\n")
+
+                    print("ID (padrão ISA-123): ")
+                    id_paciente = input()
+
+                    print("Nome: ")
+                    nome = input()
+
+                    print("Estado de Saúde: ")
+                    estado_saude = input()
+
+                    dados = [{'id': id_paciente, 
+                              'nome': nome, 
+                              'estado': estado_saude}]
+
+                    paciente.adicionarPaciente(dados)            
+                case 2:
+                    print("\n----- PACIENTES CADASTRADOS -----\n")
+                    paciente.listarPacientes()
+                case 3:
+                    pass
+                case 9:
+                    print("Fim do programa!")
+                    sair += 1
+                case _:
+                    pass
+    except:
+        print("Falha na execução do programa.")
