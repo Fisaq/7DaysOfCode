@@ -1,6 +1,3 @@
-dados = [{"id": "", "nome": "", "estado": ""}]
-
-# Criando a estrutura principal de uma lista encadeada
 class No:
     def __init__(self, paciente):
         self.paciente = paciente
@@ -19,33 +16,43 @@ class ListaEncadeada:
             self.primeiro_paciente = novo_paciente
             self.ultimo_paciente = novo_paciente
         else:
-            atual = self.primeiro_paciente
-            while atual.prox_paciente is not None:
-                atual= atual.prox_paciente
-            atual.prox_paciente = novo_paciente
+            self.ultimo_paciente.prox_paciente = novo_paciente
             self.ultimo_paciente = novo_paciente
-                
-    def removerPaciente():
-        pass
 
     def listarPacientes(self):
         atual = self.primeiro_paciente
+        i = 1
 
         while atual is not None:
+            paciente = atual.paciente
 
-            pacientes = atual.paciente
+            print(f"\nPaciente {i}:\n")
+            print(f"ID Paciente: {paciente['id']}")
+            print(f"Nome: {paciente['nome']}")
+            print(f"Estado: {paciente['estado']}\n")
 
-            for i in range(len(dados)):
-                print(f"\nPaciente {i}: \n")
-                for paciente in pacientes:
-                    print(f"ID Paciente: {paciente['id']}") 
-                    print(f"Nome: {paciente['nome']}")
-                    print(f"Estado: {paciente['estado']}")
-            i=+1
-            atual = atual.prox_paciente 
+            i += 1
+            atual = atual.prox_paciente
+
+    def removerPacientes(self,nome):
+        atual = self.primeiro_paciente
+        anterior = None
+
+        while atual is not None and atual.paciente['nome'] != nome:
+            anterior = atual
+            atual = atual.prox_paciente
+
+        if atual is None:
+            print("\nPaciente não encontrado.")
+        else:
+            if anterior is None:
+                self.primeiro_paciente = atual.prox_paciente
+            else:
+                anterior.prox_paciente = atual.prox_paciente
+        print("\nPaciente removido com sucesso.")
+
 
 if __name__ == "__main__":
-
     paciente = ListaEncadeada()
     sair = 0
 
@@ -55,33 +62,40 @@ if __name__ == "__main__":
             print("[1] Cadastrar paciente\n[2] Listar pacientes\n[3] Remover paciente\n\n[9]Sair\n")
             op = int(input("R: "))
 
-            match op:
-                case 1:
-                    print("\n----- DADOS PACIENTE -----\n")
+            if op == 1:
+                print("\n----- DADOS PACIENTE -----\n")
 
-                    print("ID (padrão ISA-123): ")
-                    id_paciente = input()
+                print("ID (padrão ISA-123): ")
+                id_paciente = input()
 
-                    print("Nome: ")
-                    nome = input()
+                print("Nome: ")
+                nome = input()
 
-                    print("Estado de Saúde: ")
-                    estado_saude = input()
+                print("Estado de Saúde: ")
+                estado_saude = input()
 
-                    dados = [{'id': id_paciente, 
-                              'nome': nome, 
-                              'estado': estado_saude}]
+                dados = {'id': id_paciente, 'nome': nome, 'estado': estado_saude}
+                paciente.adicionarPaciente(dados)
 
-                    paciente.adicionarPaciente(dados)            
-                case 2:
-                    print("\n----- PACIENTES CADASTRADOS -----\n")
-                    paciente.listarPacientes()
-                case 3:
-                    pass
-                case 9:
-                    print("Fim do programa!")
-                    sair += 1
-                case _:
-                    pass
+            elif op == 2:
+                print("\n----- PACIENTES CADASTRADOS -----\n")
+                paciente.listarPacientes()
+
+            elif op == 3:
+                nome = ""
+
+                print("\nInforme o paciente que deseja remover: ")
+                nome = str(input())
+
+                paciente.removerPacientes(nome)
+
+
+            elif op == 9:
+                print("Fim do programa!")
+                sair += 1
+
+            else:
+                print("Opção inválida!")
+
     except Exception as e:
         print(f"Falha na execução do programa: {e}")
