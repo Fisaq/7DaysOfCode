@@ -1,101 +1,82 @@
+# Inicializar com um Nó que referencia o próximo Nó e o Anterior
 class No:
-    def __init__(self, paciente):
-        self.paciente = paciente
-        self.prox_paciente = None
+    def __init__(self, produto):
+        self.produto = produto
+        self.prox_produto = None
+        self.prod_anterior = None
 
-class ListaEncadeada:
+class ListaDuplamenteLigada:
 
+    # Inicializa a class com o primeiro e o ultimo item da lista vazios
     def __init__(self):
-        self.primeiro_paciente = None
-        self.ultimo_paciente = None
+        self.primeiro_produto = None
+        self.ultimo_produto = None
 
-    def adicionarPaciente(self, dados):
-        novo_paciente = No(dados)
+    def adicionarProdutos(self,dados_produto):
+        novo_produto = No(dados_produto)
 
-        if self.primeiro_paciente is None:
-            self.primeiro_paciente = novo_paciente
-            self.ultimo_paciente = novo_paciente
+        if self.primeiro_produto is None:
+            self.primeiro_produto = novo_produto
+            self.ultimo_produto = novo_produto
         else:
-            self.ultimo_paciente.prox_paciente = novo_paciente
-            self.ultimo_paciente = novo_paciente
+            self.ultimo_produto.prox_produto = novo_produto
+            self.ultimo_produto = novo_produto
 
-    def listarPacientes(self):
-        atual = self.primeiro_paciente
-        i = 1
+    def removerProduto(self,nome_produto):
+        atual = self.primeiro_produto
 
-        while atual is not None:
-            paciente = atual.paciente
-
-            print(f"\nPaciente {i}:\n")
-            print(f"ID Paciente: {paciente['id']}")
-            print(f"Nome: {paciente['nome']}")
-            print(f"Estado: {paciente['estado']}\n")
-
-            i += 1
-            atual = atual.prox_paciente
-
-    def removerPacientes(self,nome):
-        atual = self.primeiro_paciente
-        anterior = None
-
-        while atual is not None and atual.paciente['nome'] != nome:
-            anterior = atual
-            atual = atual.prox_paciente
+        while atual is not None and atual.produto['nome'] != nome_produto:
+            atual = atual.prox_produto
 
         if atual is None:
-            print("\nPaciente não encontrado.")
-        else:
-            if anterior is None:
-                self.primeiro_paciente = atual.prox_paciente
-            else:
-                anterior.prox_paciente = atual.prox_paciente
-        print("\nPaciente removido com sucesso.")
+            print("\nProduto não encontrado.")
 
+        else:
+
+            if atual.prod_anterior is None:
+                self.primeiro_produto = atual.prox_produto
+            else:
+                atual.prod_anterior.prox_produto = atual.prox_produto
+
+            if atual.prox_produto is not None:
+                atual.prox_produto.prod_anterior = atual.prod_anterior
+
+            print("\nProduto removido com sucesso.")    
+            
+        
+
+    def listarProduto():
+        pass
+
+    def atualizarQuantidade():
+        pass
 
 if __name__ == "__main__":
-    paciente = ListaEncadeada()
+
+    produto = ListaDuplamenteLigada()
     sair = 0
 
     try:
         while sair < 1:
-            print("\n---------- SGH ----------\n")
-            print("[1] Cadastrar paciente\n[2] Listar pacientes\n[3] Remover paciente\n\n[9]Sair\n")
+            print("\n---- GERENCIAMENTO DE ESTOQUE ----\n")
+            print("[1] Adicionar produto\n[2] Listar produtos\n[3] Remover produtos [4] Atualizar quantidade\n\n[9] Sair\n")
             op = int(input("R: "))
 
-            if op == 1:
-                print("\n----- DADOS PACIENTE -----\n")
-
-                print("ID (padrão ISA-123): ")
-                id_paciente = input()
-
-                print("Nome: ")
-                nome = input()
-
-                print("Estado de Saúde: ")
-                estado_saude = input()
-
-                dados = {'id': id_paciente, 'nome': nome, 'estado': estado_saude}
-                paciente.adicionarPaciente(dados)
-
-            elif op == 2:
-                print("\n----- PACIENTES CADASTRADOS -----\n")
-                paciente.listarPacientes()
-
-            elif op == 3:
-                nome = ""
-
-                print("\nInforme o paciente que deseja remover: ")
-                nome = str(input())
-
-                paciente.removerPacientes(nome)
-
-
-            elif op == 9:
-                print("Fim do programa!")
-                sair += 1
-
-            else:
-                print("Opção inválida!")
+            match op:
+                case 1:
+                    print("Informe o produto que deseja cadastrar no estoque: ")
+                    
+                case 2:
+                    pass
+                case 3:
+                    pass
+                case 4:
+                    pass
+                case 9:
+                    print("Fim do programa!")
+                    sair += 1
+                case _:
+                    print("\nOpção inválida.")
 
     except Exception as e:
         print(f"Falha na execução do programa: {e}")
