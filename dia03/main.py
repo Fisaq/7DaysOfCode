@@ -12,11 +12,38 @@ class ListaDuplamenteLigada:
         self.primeiro_produto = None
         self.ultimo_produto = None
 
-    def adicionarProdutos():
-        pass
+    def adicionarProdutos(self,dados_produto):
+        novo_produto = No(dados_produto)
 
-    def removerProduto():
-        pass
+        if self.primeiro_produto is None:
+            self.primeiro_produto = novo_produto
+            self.ultimo_produto = novo_produto
+        else:
+            self.ultimo_produto.prox_produto = novo_produto
+            self.ultimo_produto = novo_produto
+
+    def removerProduto(self,nome_produto):
+        atual = self.primeiro_produto
+
+        while atual is not None and atual.produto['nome'] != nome_produto:
+            atual = atual.prox_produto
+
+        if atual is None:
+            print("\nProduto não encontrado.")
+
+        else:
+
+            if atual.prod_anterior is None:
+                self.primeiro_produto = atual.prox_produto
+            else:
+                atual.prod_anterior.prox_produto = atual.prox_produto
+
+            if atual.prox_produto is not None:
+                atual.prox_produto.prod_anterior = atual.prod_anterior
+
+            print("\nProduto removido com sucesso.")    
+            
+        
 
     def listarProduto():
         pass
@@ -37,7 +64,8 @@ if __name__ == "__main__":
 
             match op:
                 case 1:
-                    pass
+                    print("Informe o produto que deseja cadastrar no estoque: ")
+                    
                 case 2:
                     pass
                 case 3:
