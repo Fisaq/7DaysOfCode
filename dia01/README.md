@@ -9,4 +9,4 @@ No primeiro dia do desafio "07 Days of Code" eu fui desafiado a implementar uma 
 * Ao remover um item, o usuário deve especificar o nome do produto. 
 * Por fim, ao listar todos os itens, a lista deve exibir o nome do produto e a quantidade em um formato legível.
 
-Para resolver este desafio estarei utilizando o Python e criarei um menu acessado via Terminal.
+Para resolver este desafio estarei utilizando o Java Script no ambiente do Node.js com um menu acessado via Terminal.
